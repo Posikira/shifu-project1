@@ -31,12 +31,16 @@ class TableViewController: UITableViewController {
         cell.textLabel?.text = groceriesArray[indexPath.row]
         return cell
     }
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        groceriesArray.remove(at: indexPath.row)
+        let indexPaths = [indexPath]
+        tableView.deleteRows(at: indexPaths, with: .automatic)
+    }
     
     // MARK - TableView delegate methods
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         performSegue(withIdentifier: "anotherSegue", sender: self)
     }
-
-
 }
+
 

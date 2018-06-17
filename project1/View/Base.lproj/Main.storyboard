@@ -28,7 +28,7 @@
             </objects>
             <point key="canvasLocation" x="234" y="133"/>
         </scene>
-        <!--Table View Controller-->
+        <!--Groceries for Nikolai-->
         <scene sceneID="KP7-IV-2eW">
             <objects>
                 <tableViewController id="6O7-HW-2GU" customClass="TableViewController" customModule="project1" customModuleProvider="target" sceneMemberID="viewController">
@@ -51,7 +51,7 @@
                             <outlet property="delegate" destination="6O7-HW-2GU" id="17G-Jo-5Vg"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="3JY-J7-ckO"/>
+                    <navigationItem key="navigationItem" title="Groceries for Nikolai" id="3JY-J7-ckO"/>
                     <connections>
                         <segue destination="cOW-7G-l6n" kind="show" identifier="anotherSegue" id="ops-XJ-Xeq"/>
                     </connections>
