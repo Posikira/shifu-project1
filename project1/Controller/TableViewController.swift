@@ -8,10 +8,25 @@
 
 import UIKit
 
-class TableViewController: UITableViewController {
-
-    var groceriesArray = ["Milk", "Soda", "Apple juice", "Bananas", "Cereals", "Potatoes", "Ginger", "Cat food", "Sausages"]
+class TableViewController: UITableViewController, AddItemViewControllerDelegate {
+    func addItemViewControllerDidCancel(_controller: AddItemViewController) {
+        navigationController?.popViewController(animated: true)
+    }
     
+    func addItemViewController(_ controller: AddItemViewController, didFinishAdding item: ListItem) {
+        
+        
+        let newRowIndex = groceriesArray.count
+        groceriesArray.append(item.text)
+        let indexPath = IndexPath(row: newRowIndex, section: 0)
+        let indexPaths = [indexPath]
+        tableView.insertRows(at: indexPaths, with: .automatic)
+        navigationController?.popViewController(animated: true)
+    }
+    
+
+    var groceriesArray = ["Milk", "Soda", "Apple juice", "Bananas", "Cereals", "Potatoes", "Ginger", "Cat food", "Sausages", "Water"]
+    let item = ListItem()
     override func viewDidLoad() {
         super.viewDidLoad()
     }
@@ -49,7 +64,12 @@ class TableViewController: UITableViewController {
     }
     
     
-    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "addItem" {
+            let controller = segue.destination as! AddItemViewController
+            controller.delegate = self
+        }
+    }
     
     
     
