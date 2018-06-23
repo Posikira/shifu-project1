@@ -35,7 +35,7 @@ class TableViewController: UITableViewController, AddItemViewControllerDelegate 
         super.didReceiveMemoryWarning()
     }
     
-    // MARK - TableVeiw Datasource Methods
+    //MARK: - TableVeiw Datasource Methods
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return groceriesArray.count
@@ -52,7 +52,7 @@ class TableViewController: UITableViewController, AddItemViewControllerDelegate 
         tableView.deleteRows(at: indexPaths, with: .automatic)
     }
     
-    // MARK - TableView delegate methods
+    //MARK: - TableView delegate methods
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         performSegue(withIdentifier: "anotherSegue", sender: self)
     }
