@@ -26,9 +26,9 @@ class AddItemViewController: UITableViewController, UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         navigationController?.popViewController(animated: true)
-        print("content of textfield: \(textField.text!)")
         let item = ListItem()
         item.text = textField.text!
+        item.dateCreated = Date()
         self.save(category: item)
         tableView.reloadData()
         delegate?.addItemViewController(self, didFinishAdding: item)
@@ -47,11 +47,10 @@ class AddItemViewController: UITableViewController, UITextFieldDelegate {
     }
     
     @IBAction func done(_ sender: UIBarButtonItem) {
-//        navigationController?.popViewController(animated: true)
-//        print("content of textfield: \(textField.text!)")
-        
+      
         let item = ListItem()
         item.text = textField.text!
+        item.dateCreated = Date()
         self.save(category: item)
         tableView.reloadData()
         delegate?.addItemViewController(self, didFinishAdding: item)

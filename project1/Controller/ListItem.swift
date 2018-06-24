@@ -9,7 +9,16 @@
 import Foundation
 import RealmSwift
 
+
 class ListItem: Object {
     
     @objc dynamic var text = ""
+    @objc dynamic var dateCreated: Date?
+    
 }
+
+class dataItems {
+    var finalArray = List<ListItem>()
+}
+
+

@@ -16,27 +16,16 @@ class TableViewController: UITableViewController, AddItemViewControllerDelegate 
         navigationController?.popViewController(animated: true)
     }
     func addItemViewController(_ controller: AddItemViewController, didFinishAdding item: ListItem) {
- //       let newRowIndex = groceriesArray.count
-//        groceriesArray.append(item)
-//        digras.append(item)
-//        print("Вот дигры \(digras.count)")
-  //      let indexPath = IndexPath(row: newRowIndex, section: 0)
-    //    let indexPaths = [indexPath]
-       // tableView.insertRows(at: indexPaths, with: .automatic)
         tableView.reloadData()
         navigationController?.popViewController(animated: true)
     }
     
-
-    
-    var digras = List<ListItem>()
     let item = ListItem()
-//    var categories: Results<ListItem>
     var groceriesArray: Results<ListItem>?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-         load()
+        load()
     }
 
     override func didReceiveMemoryWarning() {
@@ -50,43 +39,36 @@ class TableViewController: UITableViewController, AddItemViewControllerDelegate 
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
         let cell = tableView.dequeueReusableCell(withIdentifier: "ListCell", for: indexPath)
-        
-        if let item = groceriesArray?[indexPath.row] {
-            
-            cell.textLabel?.text = item.text
-        }
+        cell.textLabel?.text = groceriesArray?[indexPath.row].text ?? "nothing here yet"
         
         
-        //cell.textLabel?.text = groceriesArray[indexPath.row].text
+//        if let item = groceriesArray?[indexPath.row] {
+//        cell.textLabel?.text = item.text
+//        }
         return cell
     }
+    
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-       
-       
-        if let item = groceriesArray?[indexPath.row] {
-        
+        if let item = self.groceriesArray?[indexPath.row] {
         do {
-            try realm.write {
-                realm.delete(item)
+            try self.realm.write {
+                self.realm.delete(item)
             }
         } catch {
             print("Error saving category \(error)")
         }
+            let indexPaths = [indexPath]
+            tableView.deleteRows(at: indexPaths, with: .automatic)
+            tableView.reloadData()
         }
-        let indexPaths = [indexPath]
-        tableView.deleteRows(at: indexPaths, with: .automatic)
-        
-        tableView.reloadData()
     }
-    
     //MARK: - TableView delegate methods
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         performSegue(withIdentifier: "anotherSegue", sender: self)
     }
-    
     func load() {
-        
         groceriesArray = realm.objects(ListItem.self)
         tableView.reloadData()
     }
@@ -99,9 +81,16 @@ class TableViewController: UITableViewController, AddItemViewControllerDelegate 
             controller.delegate = self
         }
     }
-    }
     
     
+    
+    
+    
+    
+    
+}
+    
+
 
 
 
