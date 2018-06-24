@@ -30,6 +30,7 @@ class AddItemViewController: UITableViewController, UITextFieldDelegate {
         let item = ListItem()
         item.text = textField.text!
         self.save(category: item)
+        tableView.reloadData()
         delegate?.addItemViewController(self, didFinishAdding: item)
         return true
     }
@@ -52,6 +53,7 @@ class AddItemViewController: UITableViewController, UITextFieldDelegate {
         let item = ListItem()
         item.text = textField.text!
         self.save(category: item)
+        tableView.reloadData()
         delegate?.addItemViewController(self, didFinishAdding: item)
     }
     

@@ -16,29 +16,26 @@ class TableViewController: UITableViewController, AddItemViewControllerDelegate 
         navigationController?.popViewController(animated: true)
     }
     func addItemViewController(_ controller: AddItemViewController, didFinishAdding item: ListItem) {
-        let newRowIndex = groceriesArray.count
-        groceriesArray.append(item)
-        digras.append(item)
-        print("Вот дигры \(digras.count)")
-        let indexPath = IndexPath(row: newRowIndex, section: 0)
-        let indexPaths = [indexPath]
-        tableView.insertRows(at: indexPaths, with: .automatic)
+ //       let newRowIndex = groceriesArray.count
+//        groceriesArray.append(item)
+//        digras.append(item)
+//        print("Вот дигры \(digras.count)")
+  //      let indexPath = IndexPath(row: newRowIndex, section: 0)
+    //    let indexPaths = [indexPath]
+       // tableView.insertRows(at: indexPaths, with: .automatic)
         navigationController?.popViewController(animated: true)
     }
     
 
     
     var digras = List<ListItem>()
-    
     let item = ListItem()
-    var categories: Results<ListItem>?
-    
-    
-    var groceriesArray = List<ListItem>()
+//    var categories: Results<ListItem>
+    var groceriesArray: Results<ListItem>!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+         load()
     }
 
     override func didReceiveMemoryWarning() {
@@ -53,11 +50,18 @@ class TableViewController: UITableViewController, AddItemViewControllerDelegate 
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ListCell", for: indexPath)
-        cell.textLabel?.text = groceriesArray[indexPath.row].text
+        
+        if let item = groceriesArray?[indexPath.row] {
+            
+            cell.textLabel?.text = item.text
+        }
+        
+        
+        //cell.textLabel?.text = groceriesArray[indexPath.row].text
         return cell
     }
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-        groceriesArray.remove(at: indexPath.row)
+       // groceriesArray.remove(at: indexPath.row)
         let indexPaths = [indexPath]
         tableView.deleteRows(at: indexPaths, with: .automatic)
     }
@@ -66,6 +70,19 @@ class TableViewController: UITableViewController, AddItemViewControllerDelegate 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         performSegue(withIdentifier: "anotherSegue", sender: self)
     }
+    
+    func load() {
+        
+        groceriesArray = realm.objects(ListItem.self)
+        
+        
+        
+        tableView.reloadData()
+        
+    }
+    
+    
+    
     
 
     
