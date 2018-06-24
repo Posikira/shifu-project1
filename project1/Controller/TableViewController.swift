@@ -23,6 +23,7 @@ class TableViewController: UITableViewController, AddItemViewControllerDelegate 
   //      let indexPath = IndexPath(row: newRowIndex, section: 0)
     //    let indexPaths = [indexPath]
        // tableView.insertRows(at: indexPaths, with: .automatic)
+        tableView.reloadData()
         navigationController?.popViewController(animated: true)
     }
     
@@ -31,7 +32,7 @@ class TableViewController: UITableViewController, AddItemViewControllerDelegate 
     var digras = List<ListItem>()
     let item = ListItem()
 //    var categories: Results<ListItem>
-    var groceriesArray: Results<ListItem>!
+    var groceriesArray: Results<ListItem>?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -45,7 +46,7 @@ class TableViewController: UITableViewController, AddItemViewControllerDelegate 
     //MARK: - TableVeiw Datasource Methods
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return groceriesArray.count
+        return groceriesArray?.count ?? 1
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -61,9 +62,22 @@ class TableViewController: UITableViewController, AddItemViewControllerDelegate 
         return cell
     }
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-       // groceriesArray.remove(at: indexPath.row)
+       
+       
+        if let item = groceriesArray?[indexPath.row] {
+        
+        do {
+            try realm.write {
+                realm.delete(item)
+            }
+        } catch {
+            print("Error saving category \(error)")
+        }
+        }
         let indexPaths = [indexPath]
         tableView.deleteRows(at: indexPaths, with: .automatic)
+        
+        tableView.reloadData()
     }
     
     //MARK: - TableView delegate methods
@@ -74,32 +88,17 @@ class TableViewController: UITableViewController, AddItemViewControllerDelegate 
     func load() {
         
         groceriesArray = realm.objects(ListItem.self)
-        
-        
-        
         tableView.reloadData()
-        
     }
-    
-    
-    
-    
 
-    
     @IBAction func addItem(_ sender: UIBarButtonItem) {
-        
     }
-    
-    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "addItem" {
             let controller = segue.destination as! AddItemViewController
             controller.delegate = self
         }
     }
-    
-    
-        
     }
     
     
