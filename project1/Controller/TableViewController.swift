@@ -9,6 +9,7 @@
 import UIKit
 import RealmSwift
 class TableViewController: UITableViewController, AddItemViewControllerDelegate {
+    let realm = try! Realm()
     
     
     func addItemViewControllerDidCancel(_controller: AddItemViewController) {
@@ -24,9 +25,10 @@ class TableViewController: UITableViewController, AddItemViewControllerDelegate 
     }
     
 
-    let realm = try! Realm()
     
+    let digras = List<ListItem>()
     let item = ListItem()
+    var categories: Results<ListItem>?
     
     
     var groceriesArray = ["Milk", "Soda", "Apple juice", "Bananas", "Cereals", "Potatoes", "Ginger", "Cat food", "Sausages", "Water"]
@@ -76,14 +78,10 @@ class TableViewController: UITableViewController, AddItemViewControllerDelegate 
     }
     
     
+        
+    }
     
     
-    
-    
-    
-    
-    
-    
-}
+
 
 

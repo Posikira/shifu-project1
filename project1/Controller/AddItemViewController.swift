@@ -29,6 +29,7 @@ class AddItemViewController: UITableViewController, UITextFieldDelegate {
         print("content of textfield: \(textField.text!)")
         let item = ListItem()
         item.text = textField.text!
+        self.save(category: item)
         delegate?.addItemViewController(self, didFinishAdding: item)
         return true
     }
@@ -50,7 +51,20 @@ class AddItemViewController: UITableViewController, UITextFieldDelegate {
         
         let item = ListItem()
         item.text = textField.text!
+        self.save(category: item)
         delegate?.addItemViewController(self, didFinishAdding: item)
+    }
+    
+    func save(category: ListItem) {
+        do {
+            try realm.write {
+                realm.add(category)
+            }
+        } catch {
+            print("Error saving category \(error)")
+        }
+        
+        tableView.reloadData()
     }
 
     override func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
