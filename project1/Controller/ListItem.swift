@@ -12,5 +12,4 @@ import RealmSwift
 class ListItem: Object {
     
     @objc dynamic var text = ""
-    
 }

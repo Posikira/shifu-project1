@@ -17,7 +17,9 @@ class TableViewController: UITableViewController, AddItemViewControllerDelegate 
     }
     func addItemViewController(_ controller: AddItemViewController, didFinishAdding item: ListItem) {
         let newRowIndex = groceriesArray.count
-        groceriesArray.append(item.text)
+        groceriesArray.append(item)
+        digras.append(item)
+        print("Вот дигры \(digras.count)")
         let indexPath = IndexPath(row: newRowIndex, section: 0)
         let indexPaths = [indexPath]
         tableView.insertRows(at: indexPaths, with: .automatic)
@@ -26,15 +28,17 @@ class TableViewController: UITableViewController, AddItemViewControllerDelegate 
     
 
     
-    let digras = List<ListItem>()
+    var digras = List<ListItem>()
+    
     let item = ListItem()
     var categories: Results<ListItem>?
     
     
-    var groceriesArray = ["Milk", "Soda", "Apple juice", "Bananas", "Cereals", "Potatoes", "Ginger", "Cat food", "Sausages", "Water"]
+    var groceriesArray = List<ListItem>()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+
     }
 
     override func didReceiveMemoryWarning() {
@@ -49,7 +53,7 @@ class TableViewController: UITableViewController, AddItemViewControllerDelegate 
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ListCell", for: indexPath)
-        cell.textLabel?.text = groceriesArray[indexPath.row]
+        cell.textLabel?.text = groceriesArray[indexPath.row].text
         return cell
     }
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
