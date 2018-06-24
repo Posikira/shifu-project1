@@ -7,12 +7,15 @@
 //
 
 import UIKit
+import RealmSwift
 protocol AddItemViewControllerDelegate: class {
     func addItemViewControllerDidCancel(_controller: AddItemViewController)
     func addItemViewController(_ controller: AddItemViewController, didFinishAdding item: ListItem)
 }
 class AddItemViewController: UITableViewController, UITextFieldDelegate {
-
+    
+    let realm = try! Realm()
+    
     @IBOutlet weak var textField: UITextField!
     override func viewDidLoad() {
         super.viewDidLoad()

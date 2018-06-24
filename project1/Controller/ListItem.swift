@@ -7,9 +7,10 @@
 //
 
 import Foundation
+import RealmSwift
 
-class ListItem {
+class ListItem: Object {
     
-    var text = ""
+    @objc dynamic var text = ""
     
 }

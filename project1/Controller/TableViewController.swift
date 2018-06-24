@@ -7,15 +7,14 @@
 //
 
 import UIKit
-
+import RealmSwift
 class TableViewController: UITableViewController, AddItemViewControllerDelegate {
+    
+    
     func addItemViewControllerDidCancel(_controller: AddItemViewController) {
         navigationController?.popViewController(animated: true)
     }
-    
     func addItemViewController(_ controller: AddItemViewController, didFinishAdding item: ListItem) {
-        
-        
         let newRowIndex = groceriesArray.count
         groceriesArray.append(item.text)
         let indexPath = IndexPath(row: newRowIndex, section: 0)
@@ -25,8 +24,13 @@ class TableViewController: UITableViewController, AddItemViewControllerDelegate 
     }
     
 
-    var groceriesArray = ["Milk", "Soda", "Apple juice", "Bananas", "Cereals", "Potatoes", "Ginger", "Cat food", "Sausages", "Water"]
+    let realm = try! Realm()
+    
     let item = ListItem()
+    
+    
+    var groceriesArray = ["Milk", "Soda", "Apple juice", "Bananas", "Cereals", "Potatoes", "Ginger", "Cat food", "Sausages", "Water"]
+    
     override func viewDidLoad() {
         super.viewDidLoad()
     }
