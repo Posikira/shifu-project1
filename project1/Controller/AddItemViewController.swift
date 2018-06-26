@@ -15,13 +15,14 @@ protocol AddItemViewControllerDelegate: class {
 class AddItemViewController: UITableViewController, UITextFieldDelegate {
     
     let realm = try! Realm()
+    var textFields = UITextField()
     
     var newThings: Results<ListItem>?
-    var data = dataToSort()
+    //var data = dataToSort()
     
     
     
-    
+
     
     
     @IBOutlet weak var textField: UITextField!
@@ -62,7 +63,7 @@ class AddItemViewController: UITableViewController, UITextFieldDelegate {
         let item = ListItem()
         item.text = textField.text!
         item.dateCreated = Date()
-        data.listOfData.insert(item, at: 0)
+        //data.listOfData.insert(item, at: 0)
         navigationController?.popViewController(animated: true)
         self.save(category: item)
         load()

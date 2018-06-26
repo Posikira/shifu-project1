@@ -21,10 +21,10 @@ class TableViewController: UITableViewController, AddItemViewControllerDelegate 
     
     let item = ListItem()
     var groceriesArray: Results<ListItem>?
-    var data = dataToSort()
     override func viewDidLoad() {
         load()
         super.viewDidLoad()
+        tableView.separatorStyle = .singleLine
        
     }
 
@@ -32,7 +32,6 @@ class TableViewController: UITableViewController, AddItemViewControllerDelegate 
         super.didReceiveMemoryWarning()
     }
     
-    //MARK: - TableVeiw Datasource Methods
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return groceriesArray?.count ?? 1
@@ -55,15 +54,26 @@ class TableViewController: UITableViewController, AddItemViewControllerDelegate 
         do {
             try self.realm.write {
                 self.realm.delete(item)
+                
             }
         } catch {
             print("Error saving category \(error)")
         }
+            
             let indexPaths = [indexPath]
-            tableView.deleteRows(at: indexPaths, with: .automatic)
+            tableView.deleteRows(at: indexPaths, with: .fade)
             load()
             tableView.reloadData()
+            
         }
+        
+        func updateAfterDelete() {
+            
+            
+            
+        }
+        
+        
     }
     //MARK: - TableView delegate methods
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -73,8 +83,6 @@ class TableViewController: UITableViewController, AddItemViewControllerDelegate 
         
         groceriesArray = realm.objects(ListItem.self)
         groceriesArray = groceriesArray?.sorted(byKeyPath: "dateCreated", ascending: false)
-    
-        
         tableView.reloadData()
     }
 

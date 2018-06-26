@@ -16,13 +16,4 @@ class ListItem: Object {
     @objc dynamic var dateCreated: Date?
     @objc dynamic var content = ""
     @objc dynamic var link = ""
-    
 }
-
-class dataToSort: Object {
-    
-    let listOfData = List<ListItem>()
-    
-    
-}
-
