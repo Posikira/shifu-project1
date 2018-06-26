@@ -11,7 +11,6 @@ import RealmSwift
 class TableViewController: UITableViewController, AddItemViewControllerDelegate {
     let realm = try! Realm()
     
-    
     func addItemViewControllerDidCancel(_controller: AddItemViewController) {
         navigationController?.popViewController(animated: true)
     }
@@ -22,10 +21,11 @@ class TableViewController: UITableViewController, AddItemViewControllerDelegate 
     
     let item = ListItem()
     var groceriesArray: Results<ListItem>?
-    
+    var data = dataToSort()
     override func viewDidLoad() {
-        super.viewDidLoad()
         load()
+        super.viewDidLoad()
+       
     }
 
     override func didReceiveMemoryWarning() {
@@ -44,9 +44,9 @@ class TableViewController: UITableViewController, AddItemViewControllerDelegate 
         cell.textLabel?.text = groceriesArray?[indexPath.row].text ?? "nothing here yet"
         
         
-//        if let item = groceriesArray?[indexPath.row] {
-//        cell.textLabel?.text = item.text
-//        }
+        if let item = groceriesArray?[indexPath.row] {
+        cell.textLabel?.text = item.text
+         }
         return cell
     }
     
@@ -61,6 +61,7 @@ class TableViewController: UITableViewController, AddItemViewControllerDelegate 
         }
             let indexPaths = [indexPath]
             tableView.deleteRows(at: indexPaths, with: .automatic)
+            load()
             tableView.reloadData()
         }
     }
@@ -69,7 +70,11 @@ class TableViewController: UITableViewController, AddItemViewControllerDelegate 
         performSegue(withIdentifier: "anotherSegue", sender: self)
     }
     func load() {
+        
         groceriesArray = realm.objects(ListItem.self)
+        groceriesArray = groceriesArray?.sorted(byKeyPath: "dateCreated", ascending: false)
+    
+        
         tableView.reloadData()
     }
 

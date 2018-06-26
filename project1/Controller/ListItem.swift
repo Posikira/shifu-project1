@@ -14,11 +14,15 @@ class ListItem: Object {
     
     @objc dynamic var text = ""
     @objc dynamic var dateCreated: Date?
+    @objc dynamic var content = ""
+    @objc dynamic var link = ""
     
 }
 
-class dataItems {
-    var finalArray = List<ListItem>()
+class dataToSort: Object {
+    
+    let listOfData = List<ListItem>()
+    
+    
 }
-
 
