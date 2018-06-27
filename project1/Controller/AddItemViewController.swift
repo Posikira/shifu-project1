@@ -18,6 +18,8 @@ class AddItemViewController: UITableViewController, UITextFieldDelegate {
     var textFields = UITextField()
     
     var newThings: Results<ListItem>?
+    
+    var itemToEdit: ListItem?
     //var data = dataToSort()
     
     
@@ -25,10 +27,20 @@ class AddItemViewController: UITableViewController, UITextFieldDelegate {
 
     
     
+    @IBOutlet weak var doneBarButton: UIBarButtonItem!
     @IBOutlet weak var textField: UITextField!
+    @IBOutlet weak var textField1: UITextField!
+    @IBOutlet weak var textField2: UITextField!
     override func viewDidLoad() {
         super.viewDidLoad()
         self.textField.delegate = self
+        
+        if let item = itemToEdit {
+            title = "Edit Item"
+            textField.text = item.text
+            doneBarButton.isEnabled = true
+            
+        }
     }
     weak var delegate: AddItemViewControllerDelegate?
     
@@ -37,6 +49,8 @@ class AddItemViewController: UITableViewController, UITextFieldDelegate {
         navigationController?.popViewController(animated: true)
         let item = ListItem()
         item.text = textField.text!
+        item.content = textField1.text!
+        item.link = textField2.text!
         item.dateCreated = Date()
         self.save(category: item)
         load()
@@ -50,7 +64,9 @@ class AddItemViewController: UITableViewController, UITextFieldDelegate {
     
     override func viewWillAppear(_ animated: Bool) {
         textField.becomeFirstResponder()
-        textField.placeholder = "create new item"
+        textField.placeholder = "Create new item"
+        textField1.placeholder = "Text"
+        textField2.placeholder = "http://"
     }
     
     @IBAction func cancel(_ sender: UIBarButtonItem) {
@@ -62,6 +78,8 @@ class AddItemViewController: UITableViewController, UITextFieldDelegate {
       
         let item = ListItem()
         item.text = textField.text!
+        item.content = textField1.text!
+        item.link = textField2.text!
         item.dateCreated = Date()
         //data.listOfData.insert(item, at: 0)
         navigationController?.popViewController(animated: true)

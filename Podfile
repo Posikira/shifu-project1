@@ -8,5 +8,6 @@ target 'project1' do
   # Pods for project1
 
 pod 'RealmSwift'
+pod 'SwipeCellKit'
 
 end

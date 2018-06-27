@@ -45,6 +45,9 @@
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="55.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <segue destination="exe-jD-epM" kind="show" identifier="editItem" trigger="accessoryAction" id="GkS-uN-DLt"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -79,10 +82,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <sections>
-                            <tableViewSection id="T0i-7F-Gxg">
+                            <tableViewSection headerTitle="Title" id="T0i-7F-Gxg">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="textCell" id="ZcR-Sj-2Hk">
-                                        <rect key="frame" x="0.0" y="35" width="375" height="44"/>
+                                        <rect key="frame" x="0.0" y="55.5" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="ZcR-Sj-2Hk" id="Tni-rA-2cc">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
@@ -103,10 +106,10 @@
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
-                            <tableViewSection id="Odh-A4-STG">
+                            <tableViewSection headerTitle="Content" id="Odh-A4-STG">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="textCell" id="jHo-DR-bew">
-                                        <rect key="frame" x="0.0" y="115" width="375" height="44"/>
+                                        <rect key="frame" x="0.0" y="155.5" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="jHo-DR-bew" id="eNK-Vq-cpV">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
@@ -127,10 +130,10 @@
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
-                            <tableViewSection id="Cj7-fV-M6T">
+                            <tableViewSection headerTitle="Link" id="Cj7-fV-M6T">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="textCell" id="q97-1U-1SL">
-                                        <rect key="frame" x="0.0" y="195" width="375" height="44"/>
+                                        <rect key="frame" x="0.0" y="255.5" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="q97-1U-1SL" id="lWe-mG-vGc">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
@@ -170,7 +173,10 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="doneBarButton" destination="yrG-zW-e6c" id="fhE-6S-siu"/>
                         <outlet property="textField" destination="gwq-I3-knu" id="LVt-W3-YQk"/>
+                        <outlet property="textField1" destination="EpM-la-Gpl" id="87Q-Zy-2BL"/>
+                        <outlet property="textField2" destination="ZgT-kD-sNm" id="n9v-n9-Bzy"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7m6-9F-6mq" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -232,4 +238,7 @@
         <image name="icons8-list-30" width="30" height="30"/>
         <image name="icons8-user-male-30" width="30" height="30"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="GkS-uN-DLt"/>
+    </inferredMetricsTieBreakers>
 </document>
