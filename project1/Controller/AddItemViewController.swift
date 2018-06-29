@@ -11,6 +11,7 @@ import RealmSwift
 protocol AddItemViewControllerDelegate: class {
     func addItemViewControllerDidCancel(_controller: AddItemViewController)
     func addItemViewController(_ controller: AddItemViewController, didFinishAdding item: ListItem)
+    func addItemViewController(_ controller: AddItemViewController, didFinishEditing item: ListItem) // содать метод в tableviewcontroller согласно протоколу
 }
 class AddItemViewController: UITableViewController, UITextFieldDelegate {
     
@@ -22,15 +23,11 @@ class AddItemViewController: UITableViewController, UITextFieldDelegate {
     var itemToEdit: ListItem?
     //var data = dataToSort()
     
-    
-    
-
-    
-    
     @IBOutlet weak var doneBarButton: UIBarButtonItem!
     @IBOutlet weak var textField: UITextField!
     @IBOutlet weak var textField1: UITextField!
     @IBOutlet weak var textField2: UITextField!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.textField.delegate = self
@@ -38,6 +35,8 @@ class AddItemViewController: UITableViewController, UITextFieldDelegate {
         if let item = itemToEdit {
             title = "Edit Item"
             textField.text = item.text
+            textField1.text = item.content
+            textField2.text = item.link
             doneBarButton.isEnabled = true
             
         }
@@ -67,6 +66,7 @@ class AddItemViewController: UITableViewController, UITextFieldDelegate {
         textField.placeholder = "Create new item"
         textField1.placeholder = "Text"
         textField2.placeholder = "http://"
+        
     }
     
     @IBAction func cancel(_ sender: UIBarButtonItem) {
