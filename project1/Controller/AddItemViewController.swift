@@ -11,7 +11,7 @@ import RealmSwift
 protocol AddItemViewControllerDelegate: class {
     func addItemViewControllerDidCancel(_controller: AddItemViewController)
     func addItemViewController(_ controller: AddItemViewController, didFinishAdding item: ListItem)
-    func addItemViewController(_ controller: AddItemViewController, didFinishEditing item: ListItem) // содать метод в tableviewcontroller согласно протоколу
+    func addItemViewController(_ controller: AddItemViewController, didFinishEditing item: ListItem) 
 }
 class AddItemViewController: UITableViewController, UITextFieldDelegate {
     
@@ -21,7 +21,6 @@ class AddItemViewController: UITableViewController, UITextFieldDelegate {
     var newThings: Results<ListItem>?
     
     var itemToEdit: ListItem?
-    //var data = dataToSort()
     
     @IBOutlet weak var doneBarButton: UIBarButtonItem!
     @IBOutlet weak var textField: UITextField!
@@ -31,14 +30,13 @@ class AddItemViewController: UITableViewController, UITextFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.textField.delegate = self
-        
+        load()
         if let item = itemToEdit {
             title = "Edit Item"
             textField.text = item.text
             textField1.text = item.content
             textField2.text = item.link
             doneBarButton.isEnabled = true
-            
         }
     }
     weak var delegate: AddItemViewControllerDelegate?
@@ -47,6 +45,13 @@ class AddItemViewController: UITableViewController, UITextFieldDelegate {
         textField.resignFirstResponder()
         navigationController?.popViewController(animated: true)
         let item = ListItem()
+        if let item = itemToEdit {
+            title = "Edit Item"
+            textField.text = item.text
+            textField1.text = item.content
+            textField2.text = item.link
+            doneBarButton.isEnabled = true
+        }
         item.text = textField.text!
         item.content = textField1.text!
         item.link = textField2.text!
@@ -66,6 +71,13 @@ class AddItemViewController: UITableViewController, UITextFieldDelegate {
         textField.placeholder = "Create new item"
         textField1.placeholder = "Text"
         textField2.placeholder = "http://"
+        if let item = itemToEdit {
+            title = "Edit Item"
+            textField.text = item.text
+            textField1.text = item.content
+            textField2.text = item.link
+
+        }
         
     }
     
@@ -75,7 +87,17 @@ class AddItemViewController: UITableViewController, UITextFieldDelegate {
     }
     
     @IBAction func done(_ sender: UIBarButtonItem) {
-      
+        
+//        if let itemToEdit = itemToEdit {
+//            itemToEdit.text = textField.text!
+//            delegate?.addItemViewController(self, didFinishEditing: itemToEdit)
+//        } else {
+//            let item = ChecklistItem()
+//            item.text = textField.text!
+//            item.checked = false
+//            delegate?.addItemViewController(self, didFinishAdding: item)
+//        }
+        
         let item = ListItem()
         item.text = textField.text!
         item.content = textField1.text!
@@ -104,6 +126,7 @@ class AddItemViewController: UITableViewController, UITextFieldDelegate {
     func load() {
         newThings = realm.objects(ListItem.self)
         newThings = newThings?.sorted(byKeyPath: "dateCreated", ascending: false)
+        
         tableView.reloadData()
     }
     

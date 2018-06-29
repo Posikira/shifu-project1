@@ -16,6 +16,8 @@ class TableViewController: UITableViewController, AddItemViewControllerDelegate 
     }
     
     func addItemViewController(_ controller: AddItemViewController, didFinishEditing item: ListItem) {
+        
+        tableView.reloadData()
         navigationController?.popViewController(animated: true)
     }
     
@@ -95,11 +97,12 @@ class TableViewController: UITableViewController, AddItemViewControllerDelegate 
         if segue.identifier == "addItem" {
             let controller = segue.destination as! AddItemViewController
             controller.delegate = self
-        } else if segue.identifier == "editItem" {
+        }
+        if segue.identifier == "editItem" {
             let controller = segue.destination as! AddItemViewController
             controller.delegate = self
-            if let indexPath = tableView.indexPath(for: sender as! UITableViewCell) {
-                controller.itemToEdit = groceriesArray![indexPath.row]
+            if let item = sender as? ListItem {
+                controller.itemToEdit = item
             }
         }
     }
