@@ -88,16 +88,14 @@ class AddItemViewController: UITableViewController, UITextFieldDelegate {
     
     @IBAction func done(_ sender: UIBarButtonItem) {
         
-//        if let itemToEdit = itemToEdit {
-//            itemToEdit.text = textField.text!
-//            delegate?.addItemViewController(self, didFinishEditing: itemToEdit)
-//        } else {
-//            let item = ChecklistItem()
-//            item.text = textField.text!
-//            item.checked = false
-//            delegate?.addItemViewController(self, didFinishAdding: item)
-//        }
-        
+        if let item = itemToEdit {
+            title = "Edit Item"
+            textField.text = item.text
+            textField1.text = item.content
+            textField2.text = item.link
+            doneBarButton.isEnabled = true
+            delegate?.addItemViewController(self, didFinishEditing: item)
+        } else {
         let item = ListItem()
         item.text = textField.text!
         item.content = textField1.text!
@@ -109,6 +107,7 @@ class AddItemViewController: UITableViewController, UITextFieldDelegate {
         load()
         tableView.reloadData()
         delegate?.addItemViewController(self, didFinishAdding: item)
+        }
     }
 
     func save(category: ListItem) {
