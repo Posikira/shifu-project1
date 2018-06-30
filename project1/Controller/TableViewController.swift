@@ -17,12 +17,6 @@ class TableViewController: UITableViewController, AddItemViewControllerDelegate 
     
     func addItemViewController(_ controller: AddItemViewController, didFinishEditing item: ListItem) {
         
-        if let index = groceriesArray?.index(of: item) {
-            let indexPath = IndexPath(row: index, section:0)
-            if let cell = tableView.cellForRow(at: indexPath) {
-               // configureText(for: cell, with: item)
-            }
-        }
         tableView.reloadData()
         navigationController?.popViewController(animated: true)
     }
@@ -110,8 +104,13 @@ class TableViewController: UITableViewController, AddItemViewControllerDelegate 
             if let item = sender as? ListItem {
                 controller.itemToEdit = item
             }
+            let object = sender as! ListItem
+            controller.itemToDelete = object
         }
     }
+    
+    
+    
     
     
     

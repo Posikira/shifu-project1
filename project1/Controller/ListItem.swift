@@ -12,8 +12,13 @@ import RealmSwift
 
 class ListItem: Object {
     
+    @objc dynamic var id = ""
     @objc dynamic var text = ""
     @objc dynamic var dateCreated: Date?
     @objc dynamic var content = ""
     @objc dynamic var link = ""
+    
+    override static func primaryKey() -> String? {
+        return "id"
+}
 }
