@@ -88,13 +88,13 @@ class AddItemViewController: UITableViewController, UITextFieldDelegate {
     
     @IBAction func done(_ sender: UIBarButtonItem) {
         
-        if let item = itemToEdit {
+        if let itemToEdit = itemToEdit {
             title = "Edit Item"
-            textField.text = item.text
-            textField1.text = item.content
-            textField2.text = item.link
+            itemToEdit.text = textField.text!
+            itemToEdit.content = textField1.text!
+            itemToEdit.link = textField2.text!
             doneBarButton.isEnabled = true
-            delegate?.addItemViewController(self, didFinishEditing: item)
+            delegate?.addItemViewController(self, didFinishEditing: itemToEdit)
         } else {
         let item = ListItem()
         item.text = textField.text!
